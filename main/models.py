@@ -10,3 +10,6 @@ class Product(models.Model):
     price = models.fields.FloatField()
     stock = models.fields.IntegerField()
     description = models.fields.TextField()
+
+class Promotions(models.Model):
+    details = models.fields.TextField()

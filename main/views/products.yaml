@@ -1,0 +1,7 @@
+products:
+  - name: Shoes 3
+    price: 100.00
+    description: "more shoes"
+  - name: Shoes 4
+    price: 100.00
+    description: "more shoes"

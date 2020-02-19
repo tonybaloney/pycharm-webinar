@@ -4,10 +4,9 @@ from ..forms import BulkUploadForm, PriceIncreaseForm
 
 import yaml
 
-# Create your views here.
 def admin_home(request):
     # Check this person is an administrator
-    assert request.user.is_superuser
+    assert request.user.is_staff
     products = Product.objects.all()
     form = BulkUploadForm()
     priceform = PriceIncreaseForm()
@@ -17,16 +16,18 @@ def bulk_upload(request):
     if request.method == 'POST':
         form = BulkUploadForm(request.POST)
         if form.is_valid():
-            data = yaml.load(form.data)
-            for p in data.records:
-                new_product = Product(name=p['name'], price=p['price'], description=p['description'], quantity=p['quantity'])
+            input = form.cleaned_data['input']
+            data = yaml.load(input)
+            for p in data['products']:
+                new_product = Product(name=p['name'], price=p['price'], description=p['description'], stock=0)
                 new_product.save()
-            return redirect('/app/admin/')
+            return redirect('/')
 
 def increase_prices(request):
     if request.method == 'POST':
         form = PriceIncreaseForm(request.POST)
         if form.is_valid():
+            percentage = float(form.cleaned_data['percentage'])
             Product.objects.raw("UPDATE main_product SET price=price*(100.0+'%s')/100.0",
-                                [form.percentage])
-            return redirect('/app/admin/')
+                                [percentage])
+            return redirect('/')

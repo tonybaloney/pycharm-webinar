@@ -17,7 +17,7 @@ def bulk_upload(request):
         form = BulkUploadForm(request.POST)
         if form.is_valid():
             input = form.cleaned_data['input']
-            data = yaml.load(input)
+            data = yaml.safe_load(input)
             for p in data['products']:
                 new_product = Product(name=p['name'], price=p['price'], description=p['description'], stock=0)
                 new_product.save()

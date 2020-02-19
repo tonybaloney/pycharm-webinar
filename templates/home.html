@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Home Page</title>
+    <title>PyCharm Webinar Demo</title>
   </head>
   <body>
     <div class="container container-fluid">
       <div class="row justify-content-center">
         <div class="col-12">
-          <h1 class="mt-2">Demo Application</h1>
+          <h1 class="mt-2">PyCharm Webinar Demo Application</h1>
           <hr class="mt-0 mb-4">
             <div class="card-deck mb-3 text-center">
                 {%  for product in products %}
@@ -26,8 +26,12 @@
                     </div>
                 {%  endfor %}
             </div>
+        <div class="alert alert-success">
+            {{ promotion }}
+        </div>
+
         {% if request.user.is_staff %}
-            <a href="admin">Admin</a>
+            <a href="admin">Secret Admin Page</a>
           {% endif %}
         </div>
       </div>

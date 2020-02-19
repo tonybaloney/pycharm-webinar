@@ -12,7 +12,25 @@
         <div class="col-8">
           <h1 class="mt-2">Demo Application</h1>
           <hr class="mt-0 mb-4">
-          <a href="admin">Admin</a>
+        <div class="card-deck mb-3 text-center">
+            {%  for product in products %}
+                <div class="card mb-4 box-shadow">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">$ {{ product.price }}</h1>
+                    <p>{{ product.description }}</p>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Purchase</button>
+                  </div>
+                </div>
+            {%  endfor %}
+
+      </div>
+
+          {% if request.is_superuser %}
+            <a href="admin">Admin</a>
+          {% endif %}
         </div>
       </div>
     </div>

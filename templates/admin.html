@@ -1,4 +1,6 @@
+{% load crispy_forms_tags %}
 <!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -29,11 +31,24 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price }}</td>
                     <td>{{ product.stock }}</td>
-                    <td><a href="admin/increase_price?product={{ name }}">Increase Price by 20%</a></td>
                 </tr>
             {%  endfor %}
             </tbody>
             </table>
+
+            <h2>Bulk Upload</h2>
+              <form method="post" action="/app/admin/bulk_upload" novalidate>
+                {% csrf_token %}
+                {{ bulkform|crispy }}
+                <button type="submit" class="btn btn-success">Upload</button>
+              </form>
+
+            <h2>Increase Prices</h2>
+              <form method="post" action="/app/admin/increase_prices" novalidate>
+                {% csrf_token %}
+                {{ priceform|crispy }}
+                <button type="submit" class="btn btn-success">Increase</button>
+              </form>
         </div>
       </div>
     </div>

@@ -7,7 +7,20 @@ import yaml
 def admin_home(request):
     # Check this person is an administrator
     assert request.user.is_staff
-    products = Product.objects.all()
+
+    Product.objects.extra(
+        where={"v", "SELECT * FROM xx WHERE x='%s'"})
+
+    Product.objects.extra(
+        select={'a': '"%s"', 'b': '"%(two)s"'},
+        select_params=('one', 'two'),
+    )
+
+    Product.objects.raw("UPDATE main_product SET price=price*(100.0+'%s')/100.0",
+                        [request.percentage])
+
+    Product.objects.extra(where=['headline="%s"'], params=[xxx])
+
     form = BulkUploadForm()
     priceform = PriceIncreaseForm()
     return render(request, "admin.html", context={"products": products, "bulkform": form, "priceform": priceform})
